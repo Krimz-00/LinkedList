@@ -90,6 +90,13 @@ int main() {
         insertLast(x);
         print(head);
         // print(head);
+      case 12:
+        if (checkSort(head))
+          printf("The linked list is sorted.\n");
+        else
+          printf("The linked list is unsorted.\n");
+        break;
+      
     } 
   } while (1);
   // print(head);
@@ -118,7 +125,7 @@ void initialiseLinkedList(int sz) {
 }
 
 void printCatalogue() {
-  printf("~~List of Operations~~\n");
+  printf("\n~~~~~~~List of Operations~~~~~~~\n");
   printf("0: print Catalogue Operation.\n");
   printf("1: Iterative print Operation.\n");
   printf("2: Recursive print Operation.\n");
@@ -131,10 +138,10 @@ void printCatalogue() {
   printf("9: Search Operation.\n");
   printf("10: Insert Operation.\n");
   printf("11: Insert Last Operation.\n");
-
+  printf("12: Check Sort Operation.\n");
+  printf("~~~~~~~~~~~~~~\n");
 
   // printf("3: Delete Operation.\n");
-
 }
 
 void print(struct Node *ll) {
@@ -272,6 +279,22 @@ void insertLast(int x) {
     }
     q->link = node;
   }
+}
+
+bool checkSort(struct Node *p) {
+  if (p == 0) {
+    printf("There are no nodes. Please populate the linked list with nodes.\n");
+    return 0;
+  }
+  int x = p->data;
+  p = p->link;
+  while (p != 0) {
+    if (p->data < x)
+      return 0;
+    x = p->data;
+    p = p->link;
+  }
+  return 1;
 }
 
 void delete(struct Node *ll, int pos) {
