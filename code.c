@@ -6,6 +6,44 @@ struct Node {
   struct Node *link;
 }*head = 0;
 
+void initialiseLinkedList(int sz);
+void displayCatalogue();
+void display(struct Node *ll);
+void rDisplay(struct Node *ll);
+void delete(struct Node *ll, int tmp);
+
+int main() {
+  // struct Node *head = 0;
+  int sz;
+  int op;
+  int tmp;
+  printf("Enter the number of nodes you want inside the linked list: ");
+  scanf("%d", &sz);
+  initialiseLinkedList(sz);
+  printf("Browse the list of opeations below.\n");
+  displayCatalogue();
+  printf("Enter the number of operation you desire from the above list: ");
+  scanf("%d", &op);
+  switch (op) {
+    case 0:
+      displayCatalogue();
+      break;
+    case 1:
+      display(head);
+      break;
+    case 2:
+      rDisplay(head);
+      break;
+    case 3:
+      printf("Enter the position of the node that you want to delete: ");
+      scanf("%d", &tmp);
+      delete(head, tmp);
+      display(head);
+      break;
+  }
+  // display(head);
+}
+
 void initialiseLinkedList(int sz) {
   int tmp;
   struct Node *p, *q = 0;
@@ -31,6 +69,7 @@ void displayCatalogue() {
   printf("0: Display Catalogue Operation.\n");
   printf("1: Iterative Display Operation.\n");
   printf("2: Recursive Display Operation.\n");
+  printf("3: Delete Operation.\n");
 
 }
 
@@ -59,27 +98,20 @@ void rDisplay(struct Node *ll) {
   }
 }
 
-int main() {
-  // struct Node *head = 0;
-  int sz;
-  int op;
-  printf("Enter the number of nodes you want inside the linked list: ");
-  scanf("%d", &sz);
-  initialiseLinkedList(sz);
-  printf("Browse the list of opeations below.\n");
-  displayCatalogue();
-  printf("Enter the number of operation you desire from the above list: ");
-  scanf("%d", &op);
-  switch (op) {
-    case 0:
-      displayCatalogue();
-      break;
-    case 1:
-      display(head);
-      break;
-    case 2:
-      rDisplay(head);
-      break;
+void delete(struct Node *ll, int pos) {
+  struct Node *p = ll, *q = 0;
+  if (pos == 0) {
+    ll = ll->link;
+    free(p);
   }
-  // display(head);
+  else {
+    for (int i = 0; i < pos-1 && p; i++) {
+      q = p;
+      p = p->link;
+    }
+    if (p) {
+      q->link = p->link;
+      free(p);
+    }
+  }
 }
