@@ -12,12 +12,14 @@ void display(struct Node *ll);
 void rDisplay(struct Node *ll);
 void delete(struct Node *ll, int tmp);
 
+//some extra comment
+
 int main() {
   // struct Node *head = 0;
   int sz;
   int op;
   int tmp;
-  printf("Enter the number of nodes you want inside the linked list: ");
+  printf("Hello World!\nEnter the number of nodes you want inside the linked list: ");
   scanf("%d", &sz);
   initialiseLinkedList(sz);
   printf("Browse the list of opeations below.\n");
