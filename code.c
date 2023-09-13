@@ -18,7 +18,7 @@ int rSumNodes(struct Node *ll);
 void max(struct Node *ll);
 void min(struct Node *ll);
 void search(struct Node *ll, int x);
-void insert(struct Node *ll, int pos, int x);
+void insert(int pos, int x);
 void insertLast(struct Node *ll, int x);
 bool checkSort(struct Node *ll);
 void insertSort(struct Node *ll, int x);
@@ -30,6 +30,8 @@ int main() {
   int sz;
   int op;
   int tmp;
+  int pos;
+  int x;
   printf("Enter the number of nodes you want inside the linked list: ");
   scanf("%d", &sz);
   initialiseLinkedList(sz);
@@ -79,6 +81,13 @@ int main() {
       search(head, tmp);
       print(head);
       break;
+    case 10:
+      printf("Enter the position you want to add the node to (starting from 0): ");
+      scanf("%d", &pos);
+      printf("Enter the number you want to add to the linked list: ");
+      scanf("%d", &x);
+      insert(pos, x);
+      print(head);
     
   }
   // print(head);
@@ -203,6 +212,29 @@ void search(struct Node *p, int x) {
     p = p->link;
   }
   printf("The number is not found anywhere!\n");
+}
+
+void insert(int pos, int x) {
+  if (pos < 0 || pos > rCountNodes(head)) {
+    printf("Position is out-of-bounds! try a different position.\n");
+    return;
+  }
+  struct Node *p = head, *node = 0, *q = 0;
+  node = (struct Node *)malloc(sizeof(struct Node));
+  node->data = x;
+  node->link = 0;
+  if (pos == 0) {
+    node->link = head;
+    head = node;
+  }
+  else {
+    for (int i = 1; i < pos+1 && p; i++) {
+      q = p;
+      p = p->link;
+    }
+    node->link = p;
+    q->link = node;
+  }
 }
 
 void delete(struct Node *ll, int pos) {
