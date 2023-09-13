@@ -87,7 +87,7 @@ int main() {
       printf("Enter the number you want to add to the linked list: ");
       scanf("%d", &x);
       insert(pos, x);
-      print(head);
+      // print(head);
     
   }
   // print(head);
@@ -119,6 +119,14 @@ void printCatalogue() {
   printf("1: Iterative print Operation.\n");
   printf("2: Recursive print Operation.\n");
   printf("3: Count Nodes Operation.\n");
+  printf("4: Recursive Count Nodes Operation.\n");
+  printf("5: Sum Nodes Operation.\n");
+  printf("6: Recursive Sum Nodes Operation.\n");
+  printf("7: Find Max Operation.\n");
+  printf("8: Find Min Operation.\n");
+  printf("9: Search Operation.\n");
+  printf("10: Insert Operation.\n");
+
 
   // printf("3: Delete Operation.\n");
 
