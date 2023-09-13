@@ -26,6 +26,14 @@ void initialiseLinkedList(int sz) {
   }
 }
 
+void displayCatalogue() {
+  printf("~~List of Operations~~\n");
+  printf("0: Display Catalogue Operation.\n");
+  printf("1: Iterative Display Operation.\n");
+  printf("2: Recursive Display Operation.\n");
+
+}
+
 void display(struct Node *ll) {
   printf("Printing the linked list nodes: ");
   while (ll != 0) {
@@ -35,11 +43,43 @@ void display(struct Node *ll) {
   printf("\n");
 }
 
+void rDisplay(struct Node *ll) {
+  static int once = 1, anotherOnce = 1;
+  if (once == 1) {
+    printf("Printing the linked list nodes (recursively): ");
+    once = 2;
+  }
+  if (ll != 0) {
+    printf("%d ", ll->data);
+    rDisplay(ll->link);
+  }
+  if (anotherOnce == 1) {
+    printf("\n");
+    anotherOnce = 2;
+  }
+}
+
 int main() {
   // struct Node *head = 0;
   int sz;
+  int op;
   printf("Enter the number of nodes you want inside the linked list: ");
   scanf("%d", &sz);
   initialiseLinkedList(sz);
-  display(head);
+  printf("Browse the list of opeations below.\n");
+  displayCatalogue();
+  printf("Enter the number of operation you desire from the above list: ");
+  scanf("%d", &op);
+  switch (op) {
+    case 0:
+      displayCatalogue();
+      break;
+    case 1:
+      display(head);
+      break;
+    case 2:
+      rDisplay(head);
+      break;
+  }
+  // display(head);
 }
