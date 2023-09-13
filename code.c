@@ -19,7 +19,7 @@ void max(struct Node *ll);
 void min(struct Node *ll);
 void search(struct Node *ll, int x);
 void insert(int pos, int x);
-void insertLast(struct Node *ll, int x);
+void insertLast(int x);
 bool checkSort(struct Node *ll);
 void insertSort(struct Node *ll, int x);
 void delete(struct Node *ll, int tmp);
@@ -27,73 +27,77 @@ void delete(struct Node *ll, int tmp);
 
 int main() {
   // struct Node *head = 0;
-  int sz;
-  int op;
-  int tmp;
-  int pos;
-  int x;
+  int sz, op, tmp, pos, x;
   printf("Enter the number of nodes you want inside the linked list: ");
   scanf("%d", &sz);
   initialiseLinkedList(sz);
   printf("Browse the list of opeations below.\n");
   printCatalogue();
-  printf("Enter the number of operation you desire from the above list: ");
-  scanf("%d", &op);
-  switch (op) {
-    case 0:
-      printCatalogue();
-      break;
-    case 1:
-      print(head);
-      break;
-    case 2:
-      rPrint(head);
-      break;
-    // case 3:
-    //   printf("Enter the position of the node that you want to delete: ");
-    //   scanf("%d", &tmp);
-    //   delete(head, tmp);
-    //   print(head);
-    //   break;
-    case 3:
-      countNodes(head);
-      break;
-    case 4:
-      printf("The number of nodes recursively is: %d\n", rCountNodes(head));
-      break;
-    case 5:
-      sumNodes(head);
-      break;
-    case 6:
-      printf("The sum of nodes recursively is: %d\n", rSumNodes(head));
-      break;
-    case 7:
-      max(head);
-      print(head);
-      break;
-    case 8:
-      min(head);
-      sumNodes(head);
-      break;
-    case 9:
-      printf("Enter the number you are looking for: ");
-      scanf("%d", &tmp);
-      search(head, tmp);
-      print(head);
-      break;
-    case 10:
-      printf("Enter the position you want to add the node to (starting from 0): ");
-      scanf("%d", &pos);
-      printf("Enter the number you want to add to the linked list: ");
-      scanf("%d", &x);
-      insert(pos, x);
-      // print(head);
-    
-  }
+  do {
+    printf("Enter the number of operation: ");
+    scanf("%d", &op);
+    switch (op) {
+      case 0:
+        printCatalogue();
+        break;
+      case 1:
+        print(head);
+        break;
+      case 2:
+        rPrint(head);
+        break;
+      // case 3:
+      //   printf("Enter the position of the node that you want to delete: ");
+      //   scanf("%d", &tmp);
+      //   delete(head, tmp);
+      //   print(head);
+      //   break;
+      case 3:
+        countNodes(head);
+        break;
+      case 4:
+        printf("The number of nodes recursively is: %d\n", rCountNodes(head));
+        break;
+      case 5:
+        sumNodes(head);
+        break;
+      case 6:
+        printf("The sum of nodes recursively is: %d\n", rSumNodes(head));
+        break;
+      case 7:
+        max(head);
+        print(head);
+        break;
+      case 8:
+        min(head);
+        sumNodes(head);
+        break;
+      case 9:
+        printf("Enter the number you are looking for: ");
+        scanf("%d", &tmp);
+        search(head, tmp);
+        print(head);
+        break;
+      case 10:
+        printf("Enter the position you want to add the node to (starting from 0): ");
+        scanf("%d", &pos);
+        printf("Enter the number you want to add to the linked list: ");
+        scanf("%d", &x);
+        insert(pos, x);
+      case 11:
+        printf("Enter the value of the node: ");
+        scanf("%d", &x);
+        insertLast(x);
+        print(head);
+        // print(head);
+    } 
+  } while (1);
   // print(head);
 }
 
 void initialiseLinkedList(int sz) {
+  if (sz == 0)
+    return;
   int tmp;
   struct Node *p, *q = 0;
   head = (struct Node *)malloc(sizeof(struct Node));
@@ -126,6 +130,7 @@ void printCatalogue() {
   printf("8: Find Min Operation.\n");
   printf("9: Search Operation.\n");
   printf("10: Insert Operation.\n");
+  printf("11: Insert Last Operation.\n");
 
 
   // printf("3: Delete Operation.\n");
@@ -223,6 +228,10 @@ void search(struct Node *p, int x) {
 }
 
 void insert(int pos, int x) {
+  if (pos > 0 && head == 0) {
+    printf("There are no nodes inside the linked list. Please add node number 0 first.\n");
+    return;
+  }
   if (pos < 0 || pos > rCountNodes(head)) {
     printf("Position is out-of-bounds! try a different position.\n");
     return;
@@ -235,12 +244,32 @@ void insert(int pos, int x) {
     node->link = head;
     head = node;
   }
+  else if (pos < 0) {
+    printf("The position you entered is invalid. Please try a different one.\n");
+    return;
+  }
   else {
     for (int i = 1; i < pos+1 && p; i++) {
       q = p;
       p = p->link;
     }
     node->link = p;
+    q->link = node;
+  }
+}
+
+void insertLast(int x) {
+  struct Node *p = head, *q = 0, *node = 0;
+  node = (struct Node *)malloc(sizeof(struct Node));
+  node->data = x;
+  node->link = 0;
+  if (head == 0)
+    head = node;
+  else {
+    while (p != 0) {
+      q = p;
+      p = p->link;
+    }
     q->link = node;
   }
 }
